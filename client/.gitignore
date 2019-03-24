@@ -8,8 +8,9 @@
 # testing
 /coverage
 
+##### I changed this to include the build folder because the server doesn't have enough ram lol
 # production
-/build
+#/build
 
 # misc
 .DS_Store
