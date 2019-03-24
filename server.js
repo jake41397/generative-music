@@ -168,6 +168,7 @@ userRoutes.route('/update/:id').post(function(req, res)
 /// END OF USER API ENDPOINTS
 //#endregion
 
+// Specify the routers for the APIs
 app.use('/todos', todoRoutes);
 app.use('/users', userRoutes);
 
