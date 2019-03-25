@@ -6,12 +6,6 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const path = require("path");
 
-const todoRoutes = express.Router();
-const userRoutes = express.Router();
-
-let Todo = require('./models/todo.model');
-let User = require('./models/user.model');
-
 app.use(cors());
 
 // Body Parser Middleware:
@@ -19,15 +13,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client/build")));
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
+// Connect to MongoDB server using Mongoose
+mongoose.connect('mongodb://127.0.0.1:27017/users', { useNewUrlParser: true });
 const connection = mongoose.connection;
-
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully.");
 });
 
+// API routes
+require('./routes')(app);
 
-
+//#region EXAMPLE API
+/*
 //#region TODO API ENDPOINTS
 
 // The route for '.../todos' to list all todos
@@ -104,7 +101,7 @@ todoRoutes.route('/update/:id').post(function(req, res)
 // The route for '.../users' to list all users
 userRoutes.route('/').get(function(req, res)
 {
-    User.find(function(err, todos)
+    User.find(function(err, users)
     {
         if (err)
         {
@@ -112,7 +109,7 @@ userRoutes.route('/').get(function(req, res)
         }
         else
         {
-            res.json(todos);
+            res.json(users);
         }
     })
 })
@@ -167,11 +164,15 @@ userRoutes.route('/update/:id').post(function(req, res)
 
 /// END OF USER API ENDPOINTS
 //#endregion
+*/
+
+//#endregion
 
 // Specify the routers for the APIs
-app.use('/todos', todoRoutes);
-app.use('/users', userRoutes);
+//app.use('/todos', todoRoutes);
+//app.use('/users', userRoutes);
 
+// Catch all the uri's not already handled by routers and redirect them to the build index.html so the router can handle them
 app.get('/*', function(req, res)
 {
     res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err)

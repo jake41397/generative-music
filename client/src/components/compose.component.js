@@ -61,6 +61,18 @@ export default class compose extends Component {
 
             noteSet.add(noteJson);
             console.log(noteSet.has(noteJson));
+
+             //0 to 1 QTS to QTE because we just want to test the sound when the button is clicked.
+             var drumSequence = {
+            notes: [
+                {pitch: pitch, quantizedStartStep: 0, quantizedEndStep: 1, isDrum: true},
+            ],
+            quantizationInfo: {stepsPerQuarter: 4},
+            tempos: [{time: 0, qpm: 120}],
+            totalQuantizedSteps: 1
+            };
+
+            drumPlayer.start(drumSequence);
         }
         //if the user toggles this off we need to purge what they entered before.
         else {
@@ -69,17 +81,7 @@ export default class compose extends Component {
             noteSet.delete(noteJson);
         }
 
-        //0 to 1 QTS to QTE because we just want to test the sound when the button is clicked.
-        var drumSequence = {
-            notes: [
-                {pitch: pitch, quantizedStartStep: 0, quantizedEndStep: 1, isDrum: true},
-            ],
-            quantizationInfo: {stepsPerQuarter: 4},
-            tempos: [{time: 0, qpm: 120}],
-            totalQuantizedSteps: 1
-        };
-
-        drumPlayer.start(drumSequence);
+       
     }
 
     //playback currently selected notes in order.
