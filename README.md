@@ -1,5 +1,5 @@
-# jai-react-app
+# generative-music
 
-This is the front-end and back-end for Jai Composer, an AI-assisted music generation tool.
+This is the front-end and back-end for JAI Composer, an generative-AI-assisted music creation tool.
 
-Jai composer is built with MongoDB, Express, Node and React.
+JAI Composer is built with MongoDB, Express, Node and React.
